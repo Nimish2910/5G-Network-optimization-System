@@ -32,8 +32,8 @@ permission denied while trying to connect to the Docker daemon socket at unix://
 Resolve it by running:
 
  ```bash
-    sudo usermod -aG docker $USER 
-    newgrp docker
+ sudo usermod -aG docker $USER 
+ newgrp docker
  ```
 These steps grant the current user access to the Docker daemon socket at /var/run/docker.sock.
 
@@ -105,12 +105,12 @@ cat ./deployments/multus-daemonset-thick.yml | kubectl apply -f -
 
 c. Deploy the 5G Core
 ```bash
-	helm install open5gs ./charts/open5gs --values ./charts/open5gs/5gSA-values.yaml
+helm install open5gs ./charts/open5gs --values ./charts/open5gs/5gSA-values.yaml
 ```
 
 d. Deploy UERANSIM:
 ```bash
-	helm install ueransim-gnb ./charts/ueransim-gnb --values ./charts/ueransim-gnb/gnb-ues-values.yaml
+helm install ueransim-gnb ./charts/ueransim-gnb --values ./charts/ueransim-gnb/gnb-ues-values.yaml
 ```
 
 e. Access the Web UI:
