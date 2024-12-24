@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Subscriber</h1>
+        <form id="create-subscriber-form">
+            <div class="form-group">
+                <label for="imsi">IMSI*</label>
+                <input type="text" id="imsi" name="imsi" required>
+            </div>
+            <div class="form-group">
+                <label for="subscriberKey">Subscriber Key (K)*</label>
+                <input type="text" id="subscriberKey" name="subscriberKey" required>
+            </div>
+            <div class="form-group">
+                <label for="operatorKey">Operator Key (OPc/OP)*</label>
+                <input type="text" id="operatorKey" name="operatorKey" required>
+            </div>
+            <div class="form-group">
+                <label for="amf">Authentication Management Field (AMF)*</label>
+                <input type="text" id="amf" name="amf" required>
+            </div>
+            <div class="form-group">
+                <label for="ueAmbrDownlink">UE-AMBR Downlink*</label>
+                <input type="number" id="ueAmbrDownlink" name="ueAmbrDownlink" required>
+            </div>
+            <div class="form-group">
+                <label for="downlinkUnit">Downlink Unit</label>
+                <input type="text" id="downlinkUnit" value="Gbps" disabled>
+            </div>
+            <div class="form-group">
+                <label for="ueAmbrUplink">UE-AMBR Uplink*</label>
+                <input type="number" id="ueAmbrUplink" name="ueAmbrUplink" required>
+            </div>
+            <div class="form-group">
+                <label for="uplinkUnit">Uplink Unit</label>
+                <input type="text" id="uplinkUnit" value="Gbps" disabled>
+            </div>
+            <button type="button" class="btn" onclick="createSubscriber()">Create Subscriber</button>
+        </form>
+        <div id="output" class="output" style="display: none;"></div>
+    </div>
+
+    <script>
+        async function createSubscriber() {
+            const formData = {
+                imsi: document.getElementById('imsi').value,
+                subscriberKey: document.getElementById('subscriberKey').value,
+                operatorKey: document.getElementById('operatorKey').value,
+                amf: document.getElementById('amf').value,
+                ueAmbrDownlink: document.getElementById('ueAmbrDownlink').value,
+                downlinkUnit: "Gbps",
+                ueAmbrUplink: document.getElementById('ueAmbrUplink').value,
+                uplinkUnit: "Gbps"
+            };
+
+            try {
+                const response = await fetch('/api/createSubscriber', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+                const outputDiv = document.getElementById('output');
+                outputDiv.style.display = 'block';
+                outputDiv.textContent = `Subscriber Message: ${data.message}\n\nPing Results:\n${data.ping_results.output || data.ping_results.error}`;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
