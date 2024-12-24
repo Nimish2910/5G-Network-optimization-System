@@ -82,6 +82,7 @@ minikube version
 ```bash
 minikube start --driver=docker
 ```
+
 4. Deploy Project Components
 
 a. Deploy MongoDB
