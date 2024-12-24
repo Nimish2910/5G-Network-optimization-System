@@ -7,6 +7,9 @@ __Title: 5G Network Optimization System__
 __Participants: Darsh Thakkar and Nimish Sabnis__
 
 This repository contains all necessary files and resources for the final project. The project includes a Web UI, Kubernetes Helm Charts, MongoDB configurations, and supporting scripts. Follow the instructions below to set up the environment.
+__demonstration Video__
+
+Link: https://drive.google.com/drive/folders/1m2XJOouI6xhBuIfY9w1dLXf-tDZBNKT3?usp=sharing
 
 __Prerequisites__
 *	Tested on: Ubuntu 20.04 using Multipass on MacOS
